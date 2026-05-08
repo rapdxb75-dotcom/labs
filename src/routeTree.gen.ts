@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubmissionCompleteRouteImport } from './routes/submission-complete'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as FaqsRouteImport } from './routes/faqs'
@@ -18,11 +19,17 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CheckoutIndexRouteImport } from './routes/checkout/index'
+import { Route as OnboardingUploadShareRouteImport } from './routes/onboarding_.upload-share'
 import { Route as OnboardingTalkItOutRouteImport } from './routes/onboarding_.talk-it-out'
 import { Route as OnboardingConversationalRouteImport } from './routes/onboarding_.conversational'
 import { Route as CheckoutPaymentRouteImport } from './routes/checkout/payment'
 import { Route as CheckoutDoneRouteImport } from './routes/checkout/done'
 
+const SubmissionCompleteRoute = SubmissionCompleteRouteImport.update({
+  id: '/submission-complete',
+  path: '/submission-complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -68,6 +75,11 @@ const CheckoutIndexRoute = CheckoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CheckoutRoute,
 } as any)
+const OnboardingUploadShareRoute = OnboardingUploadShareRouteImport.update({
+  id: '/onboarding_/upload-share',
+  path: '/onboarding/upload-share',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingTalkItOutRoute = OnboardingTalkItOutRouteImport.update({
   id: '/onboarding_/talk-it-out',
   path: '/onboarding/talk-it-out',
@@ -99,10 +111,12 @@ export interface FileRoutesByFullPath {
   '/faqs': typeof FaqsRoute
   '/onboarding': typeof OnboardingRoute
   '/products': typeof ProductsRoute
+  '/submission-complete': typeof SubmissionCompleteRoute
   '/checkout/done': typeof CheckoutDoneRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/onboarding/conversational': typeof OnboardingConversationalRoute
   '/onboarding/talk-it-out': typeof OnboardingTalkItOutRoute
+  '/onboarding/upload-share': typeof OnboardingUploadShareRoute
   '/checkout/': typeof CheckoutIndexRoute
 }
 export interface FileRoutesByTo {
@@ -113,10 +127,12 @@ export interface FileRoutesByTo {
   '/faqs': typeof FaqsRoute
   '/onboarding': typeof OnboardingRoute
   '/products': typeof ProductsRoute
+  '/submission-complete': typeof SubmissionCompleteRoute
   '/checkout/done': typeof CheckoutDoneRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/onboarding/conversational': typeof OnboardingConversationalRoute
   '/onboarding/talk-it-out': typeof OnboardingTalkItOutRoute
+  '/onboarding/upload-share': typeof OnboardingUploadShareRoute
   '/checkout': typeof CheckoutIndexRoute
 }
 export interface FileRoutesById {
@@ -129,10 +145,12 @@ export interface FileRoutesById {
   '/faqs': typeof FaqsRoute
   '/onboarding': typeof OnboardingRoute
   '/products': typeof ProductsRoute
+  '/submission-complete': typeof SubmissionCompleteRoute
   '/checkout/done': typeof CheckoutDoneRoute
   '/checkout/payment': typeof CheckoutPaymentRoute
   '/onboarding_/conversational': typeof OnboardingConversationalRoute
   '/onboarding_/talk-it-out': typeof OnboardingTalkItOutRoute
+  '/onboarding_/upload-share': typeof OnboardingUploadShareRoute
   '/checkout/': typeof CheckoutIndexRoute
 }
 export interface FileRouteTypes {
@@ -146,10 +164,12 @@ export interface FileRouteTypes {
     | '/faqs'
     | '/onboarding'
     | '/products'
+    | '/submission-complete'
     | '/checkout/done'
     | '/checkout/payment'
     | '/onboarding/conversational'
     | '/onboarding/talk-it-out'
+    | '/onboarding/upload-share'
     | '/checkout/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -160,10 +180,12 @@ export interface FileRouteTypes {
     | '/faqs'
     | '/onboarding'
     | '/products'
+    | '/submission-complete'
     | '/checkout/done'
     | '/checkout/payment'
     | '/onboarding/conversational'
     | '/onboarding/talk-it-out'
+    | '/onboarding/upload-share'
     | '/checkout'
   id:
     | '__root__'
@@ -175,10 +197,12 @@ export interface FileRouteTypes {
     | '/faqs'
     | '/onboarding'
     | '/products'
+    | '/submission-complete'
     | '/checkout/done'
     | '/checkout/payment'
     | '/onboarding_/conversational'
     | '/onboarding_/talk-it-out'
+    | '/onboarding_/upload-share'
     | '/checkout/'
   fileRoutesById: FileRoutesById
 }
@@ -191,12 +215,21 @@ export interface RootRouteChildren {
   FaqsRoute: typeof FaqsRoute
   OnboardingRoute: typeof OnboardingRoute
   ProductsRoute: typeof ProductsRoute
+  SubmissionCompleteRoute: typeof SubmissionCompleteRoute
   OnboardingConversationalRoute: typeof OnboardingConversationalRoute
   OnboardingTalkItOutRoute: typeof OnboardingTalkItOutRoute
+  OnboardingUploadShareRoute: typeof OnboardingUploadShareRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/submission-complete': {
+      id: '/submission-complete'
+      path: '/submission-complete'
+      fullPath: '/submission-complete'
+      preLoaderRoute: typeof SubmissionCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -260,6 +293,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckoutIndexRouteImport
       parentRoute: typeof CheckoutRoute
     }
+    '/onboarding_/upload-share': {
+      id: '/onboarding_/upload-share'
+      path: '/onboarding/upload-share'
+      fullPath: '/onboarding/upload-share'
+      preLoaderRoute: typeof OnboardingUploadShareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding_/talk-it-out': {
       id: '/onboarding_/talk-it-out'
       path: '/onboarding/talk-it-out'
@@ -316,8 +356,10 @@ const rootRouteChildren: RootRouteChildren = {
   FaqsRoute: FaqsRoute,
   OnboardingRoute: OnboardingRoute,
   ProductsRoute: ProductsRoute,
+  SubmissionCompleteRoute: SubmissionCompleteRoute,
   OnboardingConversationalRoute: OnboardingConversationalRoute,
   OnboardingTalkItOutRoute: OnboardingTalkItOutRoute,
+  OnboardingUploadShareRoute: OnboardingUploadShareRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

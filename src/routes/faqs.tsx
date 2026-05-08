@@ -30,33 +30,33 @@ export const Route = createFileRoute("/faqs")({
 
 function FAQs() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-20">
-      <div className="reveal text-center mb-12">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Help center</p>
-        <h1 className="text-5xl font-semibold tracking-tight">Got questions?</h1>
-        <p className="mt-4 text-muted-foreground">The most common things founders ask us.</p>
+    <div className="mx-auto max-w-3xl px-6 py-12 md:py-20">
+      <div className="reveal text-center mb-10 md:mb-12">
+        <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Help center</p>
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Got questions?</h1>
+        <p className="mt-4 text-black/60 text-sm md:text-base font-medium px-4">The most common things founders ask us.</p>
       </div>
 
-      <Accordion type="single" collapsible className="bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] divide-y divide-white/10 overflow-hidden shadow-2xl">
+      <Accordion type="single" collapsible className="bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[2rem] md:rounded-[2.5rem] divide-y divide-white/10 overflow-hidden shadow-2xl">
         {FAQS.map(([q, a], i) => (
-          <AccordionItem key={i} value={`i${i}`} className="border-0 px-8 reveal" style={{ transitionDelay: `${i * 30}ms` }}>
-            <AccordionTrigger className="text-left font-bold hover:no-underline py-6 text-black/80 hover:text-black transition-colors text-lg tracking-tight">
+          <AccordionItem key={i} value={`i${i}`} className="border-0 px-6 md:px-8 reveal" style={{ transitionDelay: `${i * 30}ms` }}>
+            <AccordionTrigger className="text-left font-bold hover:no-underline py-5 md:py-6 text-black/80 hover:text-black transition-colors text-base md:text-lg tracking-tight">
               {q}
             </AccordionTrigger>
-            <AccordionContent className="text-black/60 leading-relaxed pb-8 font-medium">
+            <AccordionContent className="text-black/60 text-sm md:text-base leading-relaxed pb-6 md:pb-8 font-medium">
               {a}
             </AccordionContent>
           </AccordionItem>
         ))}
       </Accordion>
 
-      <div className="reveal mt-12 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-12 text-center shadow-2xl">
-        <div className="h-14 w-14 mx-auto rounded-2xl bg-black/5 text-black grid place-items-center mb-6 shadow-xl">
+      <div className="reveal mt-10 md:mt-12 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 text-center shadow-2xl">
+        <div className="h-12 w-12 md:h-14 md:w-14 mx-auto rounded-2xl bg-black/5 text-black grid place-items-center mb-6 shadow-xl">
           <LifeBuoy className="h-6 w-6" />
         </div>
-        <h2 className="text-3xl font-bold text-black tracking-tight">Still have questions?</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-black tracking-tight">Still have questions?</h2>
         <p className="mt-3 text-black/60 font-medium">We reply within 24 hours.</p>
-        <Button size="lg" className="mt-10 rounded-2xl px-10 py-7 bg-black text-white hover:opacity-90 transition-all font-bold tracking-widest uppercase text-xs shadow-xl">Contact us</Button>
+        <Button size="lg" className="mt-8 md:mt-10 rounded-xl md:rounded-2xl px-8 md:px-10 py-6 md:py-7 bg-black text-white hover:opacity-90 transition-all font-bold tracking-widest uppercase text-[10px] md:text-xs shadow-xl w-full sm:w-auto">Contact us</Button>
       </div>
     </div>
   );

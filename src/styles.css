@@ -335,6 +335,70 @@
       border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     }
   }
+
+  /* Ultra-Premium Toast System */
+  [data-sonner-toast] {
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(255, 255, 255, 0.8);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  }
+
+  [data-sonner-toast][data-rich-colors="true"][data-type="success"] {
+    background: 
+      radial-gradient(at 0% 0%, oklch(0.9 0.1 150 / 0.1), transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.8 0.1 150 / 0.05), transparent 50%),
+      white !important;
+    border-color: oklch(0.8 0.1 150 / 0.5) !important;
+    color: black !important;
+    box-shadow: 
+      0 32px 64px -16px oklch(0.8 0.1 150 / 0.2),
+      inset 0 0 0 1px oklch(0.8 0.1 150 / 0.1),
+      inset 0 0 20px 0 oklch(0.8 0.1 150 / 0.05) !important;
+  }
+
+  [data-sonner-toast] [data-success-icon] {
+    color: oklch(0.6 0.15 150) !important;
+    background: oklch(0.95 0.05 150);
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px oklch(0.6 0.15 150 / 0.1);
+  }
+
+  [data-sonner-toast][data-rich-colors="true"][data-type="error"] {
+    background: 
+      radial-gradient(at 0% 0%, oklch(0.9 0.1 20 / 0.1), transparent 50%),
+      radial-gradient(at 100% 100%, oklch(0.8 0.1 20 / 0.05), transparent 50%),
+      white !important;
+    border-color: oklch(0.8 0.1 20 / 0.5) !important;
+    color: black !important;
+    box-shadow: 
+      0 32px 64px -16px oklch(0.8 0.1 20 / 0.2),
+      inset 0 0 0 1px oklch(0.8 0.1 20 / 0.1),
+      inset 0 0 20px 0 oklch(0.8 0.1 20 / 0.05) !important;
+  }
+
+  [data-sonner-toast] [data-error-icon] {
+    color: oklch(0.6 0.15 20) !important;
+    background: oklch(0.95 0.05 20);
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px oklch(0.6 0.15 20 / 0.1);
+  }
+
+  [data-sonner-toast] [data-close-button] {
+    border-radius: 12px !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    background: white !important;
+    color: rgba(0,0,0,0.2) !important;
+    transition: all 0.3s ease !important;
+    right: 12px !important;
+    top: 12px !important;
+  }
+
+  [data-sonner-toast] [data-close-button]:hover {
+    color: black !important;
+    transform: scale(1.1) rotate(90deg);
+  }
 }
 @layer utilities {
   .perspective-1000 {

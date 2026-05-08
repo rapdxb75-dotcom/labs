@@ -17,19 +17,19 @@ function CheckoutStepper({ step }: { step: "details" | "payment" | "done" }) {
   const currentIndex = steps.findIndex(s => s.id === step);
 
   return (
-    <div className="flex items-center justify-center mb-10 lg:mb-16">
+    <div className="flex items-center justify-center mb-8 lg:mb-12">
       {steps.map((s, i) => (
         <div key={s.id} className="flex items-center">
-          <div className={`flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-full border-2 text-sm sm:text-base font-bold transition-colors ${
+          <div className={`flex items-center justify-center h-7 w-7 sm:h-8 sm:w-8 rounded-full border-2 text-[10px] sm:text-xs font-bold transition-colors ${
             i <= currentIndex ? "bg-primary border-primary text-primary-foreground" : "border-muted text-muted-foreground bg-background"
           }`}>
-            {i < currentIndex ? <CheckCircle2 className="h-5 w-5" /> : i + 1}
+            {i < currentIndex ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
           </div>
-          <span className={`ml-2 sm:ml-3 font-semibold text-xs sm:text-sm hidden sm:inline-block transition-colors ${i <= currentIndex ? "text-foreground" : "text-muted-foreground"}`}>
+          <span className={`ml-2 sm:ml-2.5 font-bold text-[9px] sm:text-[10px] uppercase tracking-widest hidden sm:inline-block transition-colors ${i <= currentIndex ? "text-foreground" : "text-muted-foreground"}`}>
             {s.label}
           </span>
           {i < steps.length - 1 && (
-            <div className={`w-10 sm:w-16 md:w-24 h-0.5 mx-2 sm:mx-4 transition-colors ${i < currentIndex ? "bg-primary" : "bg-border"}`} />
+            <div className={`w-8 sm:w-12 md:w-16 h-0.5 mx-2 sm:mx-3 transition-colors ${i < currentIndex ? "bg-primary" : "bg-border"}`} />
           )}
         </div>
       ))}
@@ -54,8 +54,8 @@ function CheckoutLayout() {
   }, [step]);
 
   return (
-    <div className="w-full overflow-x-hidden min-h-[calc(100vh-80px)] bg-background">
-      <div className={`mx-auto max-w-7xl px-4 sm:px-6 py-12 lg:py-20 font-sans transition-all duration-500 ease-out transform ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <div className="w-full overflow-x-hidden min-h-[calc(100vh-80px)] bg-transparent">
+      <div className={`mx-auto max-w-7xl px-4 sm:px-6 py-8 lg:py-12 font-sans transition-all duration-500 ease-out transform ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <CheckoutStepper step={step} />
         <Outlet />
       </div>

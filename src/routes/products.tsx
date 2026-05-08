@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { CheckCircle, ShoppingBag, ArrowRight, Microscope, Sparkles, Activity, Dna, Star, Users } from "lucide-react";
 import { PRODUCTS, useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
@@ -55,94 +56,99 @@ export const Route = createFileRoute("/products")({
 function Products() {
   const { add } = useCart();
 
-  const handleAddproduct = (p: any) => {
-    console.log("Adding product");
+  const handleAddproduct = useCallback((p: any) => {
+    console.log("Adding product", p.id);
     add(p);
-  };
+  }, [add]);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
-      <div className="reveal text-center mb-16">
-        <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Our services</p>
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">
+    <div className="mx-auto max-w-7xl px-6 py-12 md:py-20">
+      <div className="reveal text-center mb-12 md:mb-16">
+        <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Our services</p>
+        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
           Transform ideas into <span className="text-gradient-cyan">reality.</span>
         </h1>
-        <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+        <p className="mt-4 text-black/60 max-w-2xl mx-auto text-base md:text-lg font-medium px-4">
           Choose the perfect service to bring your vision to life. Each is engineered to take you one
           step closer to launch.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8">
         {PRODUCTS.map((p, i) => {
           const Icon = ICONS[p.id as keyof typeof ICONS];
           return (
-            <article key={p.id} className="reveal bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col p-10 shadow-2xl transition-all hover:scale-[1.02] hover:bg-white/10" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="flex gap-6">
-                 <div className="h-24 w-24 rounded-2xl bg-black/5 flex items-center justify-center shrink-0 border border-black/10 shadow-xl">
-                    <Icon className="h-12 w-12 text-black" />
+            <article 
+              key={p.id} 
+              id={p.id}
+              className="reveal bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden flex flex-col p-6 md:p-10 shadow-2xl transition-all hover:scale-[1.01] hover:bg-white/60 scroll-mt-24" 
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className="flex flex-col sm:flex-row gap-6">
+                 <div className="h-20 w-20 md:h-24 md:w-24 rounded-2xl bg-white flex items-center justify-center shrink-0 border border-white/60 shadow-xl mx-auto sm:mx-0">
+                    <Icon className="h-10 w-10 md:h-12 md:w-12 text-black" />
                  </div>
-                 <div className="flex-1 pt-1">
-                    <div className="flex justify-between items-start">
-                       <h2 className="text-3xl font-bold tracking-tight text-black">{p.title}</h2>
-                       <span className="text-3xl font-bold text-black">${p.price}</span>
+                 <div className="flex-1 pt-1 text-center sm:text-left">
+                    <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-2">
+                       <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-black">{p.title}</h2>
+                       <span className="text-2xl md:text-3xl font-bold text-black">${p.price}</span>
                     </div>
-                    <p className="text-black/60 font-medium mt-1 uppercase tracking-widest text-[10px]">{p.tagline}</p>
-                    <div className="flex items-center gap-5 mt-4 text-[10px] font-bold uppercase tracking-widest text-black/40">
+                    <p className="text-black/60 font-medium mt-1 uppercase tracking-widest text-[9px] md:text-[10px]">{p.tagline}</p>
+                    <div className="flex items-center justify-center sm:justify-start gap-5 mt-4 text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-black/40">
                        <span className="flex items-center gap-1.5 text-black">
-                          <Star className="h-4 w-4 fill-current" /> 4.9
+                          <Star className="h-3.5 w-3.5 md:h-4 md:w-4 fill-current" /> 4.9
                        </span>
                        <span className="flex items-center gap-1.5">
-                          <Users className="h-4 w-4" /> 500+ clients
+                          <Users className="h-3.5 w-3.5 md:h-4 md:w-4" /> 500+ clients
                        </span>
                     </div>
                  </div>
               </div>
 
-              <p className="mt-10 text-lg text-black/70 leading-relaxed font-medium">
+              <p className="mt-8 md:mt-10 text-base md:text-lg text-black/70 leading-relaxed font-medium">
                 {FULL[p.id]}
               </p>
 
-              <div className="mt-10">
-                <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-6">What's Included:</h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="mt-8 md:mt-10">
+                <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">What's Included:</h3>
+                <ul className="grid grid-cols-1 gap-3 md:gap-4">
                   {FEATURES[p.id].map(f => (
                      <li key={f} className="flex gap-3 text-sm text-black/60 items-center font-medium">
-                        <CheckCircle className="h-5 w-5 text-black shrink-0" />
+                        <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-black shrink-0" />
                         <span>{f}</span>
                      </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="mt-10">
-                 <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-6">See It In Action:</h3>
-                 <div className="aspect-video rounded-3xl overflow-hidden bg-black/5 border border-black/10 group relative shadow-xl">
+              <div className="mt-8 md:mt-10">
+                 <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">See It In Action:</h3>
+                 <div className="aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-black/5 border border-black/10 group relative shadow-xl">
                     <img src={p.image} alt={p.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-80" />
                     <div className="absolute inset-0 bg-black/10 pointer-events-none group-hover:opacity-0 transition-opacity" />
                  </div>
               </div>
 
               {SUCCESS_STORIES[p.id] && (
-                <div className="mt-10">
-                  <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-6">Recent Success Stories:</h3>
+                <div className="mt-8 md:mt-10">
+                  <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">Recent Success Stories:</h3>
                   <div className="grid grid-cols-1 gap-4">
                     {SUCCESS_STORIES[p.id].map((story, idx) => (
-                      <div key={idx} className="bg-white/10 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 transition-all hover:bg-white/20 shadow-lg">
+                      <div key={idx} className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-xl md:rounded-2xl p-5 md:p-6 transition-all hover:bg-white/60 shadow-lg">
                         <div className="flex justify-between items-baseline mb-2">
-                          <span className="font-bold text-black text-lg">{story.name}</span>
-                          <span className="text-[10px] text-black/40 font-bold uppercase tracking-widest">{story.company}</span>
+                          <span className="font-bold text-black text-base md:text-lg">{story.name}</span>
+                          <span className="text-[9px] text-black/40 font-bold uppercase tracking-widest">{story.company}</span>
                         </div>
-                        <p className="text-sm text-black/60 font-medium leading-relaxed">{story.result}</p>
+                        <p className="text-xs md:text-sm text-black/60 font-medium leading-relaxed">{story.result}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              <div className="mt-12 flex gap-3">
-                 <Button onClick={() => handleAddproduct(p)} size="lg" className="flex-1 rounded-2xl bg-black text-white hover:opacity-90 transition-all font-bold tracking-widest uppercase text-xs h-16 shadow-xl">
-                    <ShoppingBag className="h-5 w-5 mr-2" /> Add to cart
+              <div className="mt-10 md:mt-12 flex gap-3">
+                 <Button onClick={() => handleAddproduct(p)} size="lg" className="flex-1 rounded-xl md:rounded-2xl bg-black text-white hover:opacity-90 transition-all font-bold tracking-widest uppercase text-[10px] md:text-xs h-14 md:h-16 shadow-xl">
+                    <ShoppingBag className="h-4 w-4 md:h-5 md:w-5 mr-2" /> Add to cart
                  </Button>
               </div>
             </article>
@@ -150,20 +156,20 @@ function Products() {
         })}
       </div>
 
-      <div className="reveal mt-16 relative overflow-hidden rounded-[3rem] bg-black text-white p-12 md:p-20 text-center shadow-2xl">
+      <div className="reveal mt-12 md:mt-16 relative overflow-hidden rounded-[2.5rem] md:rounded-[3rem] bg-black text-white p-10 md:p-20 text-center shadow-2xl mx-4 md:mx-0">
         <div className="absolute inset-0 ring-grid opacity-20 pointer-events-none" />
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
           All four. <span className="text-white/40">One protocol.</span>
         </h2>
-        <p className="mt-6 text-white/60 max-w-xl mx-auto text-lg font-medium leading-relaxed">
+        <p className="mt-4 md:mt-6 text-white/60 max-w-xl mx-auto text-base md:text-lg font-medium leading-relaxed px-4">
           The full DNA Labs experience — Validate, See, Feel and Plan together.
         </p>
         <Button
           size="lg"
           onClick={() => PRODUCTS.forEach(add)}
-          className="mt-10 rounded-2xl px-12 py-8 bg-white text-black hover:bg-white/90 transition-all font-bold tracking-widest uppercase text-sm shadow-2xl"
+          className="mt-8 md:mt-10 rounded-xl md:rounded-2xl px-8 md:px-12 py-6 md:py-8 bg-white text-black hover:bg-white/90 transition-all font-bold tracking-widest uppercase text-xs md:text-sm shadow-2xl w-full sm:w-auto"
         >
-          I want them all <ArrowRight className="ml-3 h-5 w-5" />
+          I want them all <ArrowRight className="ml-3 h-4 w-4 md:h-5 md:w-5" />
         </Button>
       </div>
     </div>

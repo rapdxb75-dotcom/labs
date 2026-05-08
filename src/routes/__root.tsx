@@ -43,15 +43,11 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
+    <>
+      <HeadContent />
+      {children}
+      <Scripts />
+    </>
   );
 }
 
@@ -82,7 +78,7 @@ function RootComponent() {
         </main>
         <Footer />
         <CartDrawer />
-        <Toaster richColors />
+        <Toaster position="top-right" richColors offset={32} gap={12} closeButton />
       </div>
     </CartProvider>
   );
