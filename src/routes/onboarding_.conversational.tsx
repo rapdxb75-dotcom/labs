@@ -1,6 +1,13 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Route = createFileRoute("/onboarding_/conversational")({
   component: ConversationalFlow,
@@ -51,7 +58,7 @@ function ConversationalFlow() {
       }, 300);
     } else {
       // Submit logic here
-      navigate({ to: "/checkout/done" });
+      navigate({ to: "/submission-complete" });
     }
   };
 
@@ -73,46 +80,43 @@ function ConversationalFlow() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col text-foreground font-sans selection:bg-primary/30 relative overflow-hidden bg-white">
-      {/* Black/White/Gray Gradient Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,oklch(0.95_0_0),transparent_70%),radial-gradient(circle_at_bottom_left,oklch(0.2_0_0),transparent_70%),linear-gradient(to_bottom,white,oklch(0.9_0_0))]" />
-      
-      {/* Background Decor */}
-      <div className="absolute inset-0 ring-grid pointer-events-none opacity-20" />
-
+    <div className="min-h-screen w-full flex flex-col px-6 md:px-10 py-6 text-black font-sans selection:bg-primary/30 relative overflow-hidden">
       {/* Top Bar with Progress */}
-      <header className="w-full flex items-center justify-between p-6 relative z-10">
-        <button
-          onClick={() => navigate({ to: "/onboarding" })}
-          className="text-muted-foreground hover:text-foreground font-medium transition flex items-center gap-2"
-        >
-          <ArrowLeft className="h-5 w-5" /> Validate - Conversational
-        </button>
-        <div className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
-          {currentIndex + 1} / {questions.length}
-        </div>
-      </header>
+      <div className="mt-20">
+        <header className="w-full flex items-center justify-between py-4 md:py-6 relative z-10">
+          <button
+            onClick={() => navigate({ to: "/onboarding" })}
+            className="text-black/40 hover:text-black font-bold transition flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest"
+          >
+            <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" /> Back
+          </button>
+          <div className="text-[10px] md:text-sm font-black tracking-widest text-black/40 uppercase">
+            {currentIndex + 1} / {questions.length}
+          </div>
+        </header>
 
-      {/* Progress Bar */}
-      <div className="w-full h-1 bg-secondary relative z-10">
-        <div
-          className="absolute top-0 left-0 h-full bg-primary transition-all duration-500 ease-out"
-          style={{ width: `${progress}%` }}
-        />
+        {/* Progress Bar */}
+        <div className="w-full h-1 bg-black/5 relative z-10 rounded-full overflow-hidden">
+          <div
+            className="absolute top-0 left-0 h-full bg-black transition-all duration-500 ease-out"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-grow flex items-center justify-center p-6 md:p-12 relative z-10 overflow-hidden">
+      <main className="flex-grow flex items-center justify-center py-8 md:py-12 relative z-10 overflow-hidden mb-12">
+
         <div
-          className={`w-full max-w-3xl flex flex-col transition-all duration-300 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[3rem] p-8 md:p-16 shadow-2xl ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
+          className={`w-full max-w-5xl flex flex-col transition-all duration-300 bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 shadow-xl relative ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
         >
           {/* Question Counter Label */}
-          <span className="text-black/40 font-bold tracking-[0.3em] text-xs mb-6 uppercase">
+          <span className="text-black/40 font-bold tracking-[0.3em] text-[10px] md:text-xs mb-4 md:mb-6 uppercase">
             Step {currentIndex + 1}
           </span>
 
           {/* Question Text */}
-          <h1 className="text-3xl md:text-5xl font-semibold mb-12 leading-tight text-black drop-shadow-sm">
+          <h1 className="text-2xl md:text-5xl font-bold mb-8 md:mb-12 leading-tight text-black drop-shadow-sm tracking-tight">
             {currentQuestion.text}
           </h1>
 
@@ -126,7 +130,7 @@ function ConversationalFlow() {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyDown={handleKeyDown}
                 autoFocus
-                className="w-full bg-transparent border-b-2 border-black/10 focus:border-black text-2xl md:text-4xl py-6 focus:outline-none transition-all placeholder:text-black/10 text-black"
+                className="w-full bg-black/5 border border-black/5 rounded-xl md:rounded-3xl text-lg md:text-3xl p-6 md:p-8 focus:outline-none focus:border-black/10 transition-all placeholder:text-black/20 text-black shadow-xl font-medium"
               />
             ) : currentQuestion.type === "textarea" ? (
               <textarea
@@ -136,53 +140,53 @@ function ConversationalFlow() {
                 onKeyDown={handleKeyDown}
                 autoFocus
                 rows={4}
-                className="w-full bg-white/5 border border-white/10 focus:border-white/30 rounded-3xl text-xl p-8 focus:outline-none transition-all placeholder:text-black/10 text-black resize-none"
+                className="w-full bg-black/5 border border-black/5 rounded-xl md:rounded-3xl text-base md:text-xl p-6 md:p-8 focus:outline-none focus:border-black/10 transition-all placeholder:text-black/20 text-black resize-none shadow-xl font-medium min-h-[150px] md:min-h-[200px]"
               />
             ) : currentQuestion.type === "select" ? (
               <div className="w-full relative group">
-                <select
+                <Select
                   value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  className="w-full bg-white/5 border border-white/10 rounded-3xl p-6 text-xl appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer text-black"
+                  onValueChange={(value) => setInputValue(value)}
                 >
-                  <option value="" disabled>{currentQuestion.placeholder || "Select an option..."}</option>
-                  {currentQuestion.options?.map((option) => (
-                    <option key={option} value={option} className="bg-white text-black">
-                      {option}
-                    </option>
-                  ))}
-                </select>
-                <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none text-black/30 group-hover:text-black transition-colors">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
-                </div>
+                  <SelectTrigger className="w-full h-16 md:h-24 bg-black/5 border-black/5 text-lg md:text-2xl px-6 md:px-8 rounded-xl md:rounded-2xl">
+                    <SelectValue placeholder={currentQuestion.placeholder || "Select an option..."} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white/90 backdrop-blur-xl border-white/60">
+                    {currentQuestion.options?.map((option) => (
+                      <SelectItem key={option} value={option} className="text-sm md:text-base py-3">
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             ) : null}
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center gap-6 mt-16">
+          <div className="flex items-center gap-6 mt-12 md:mt-16">
             <button
               onClick={handleNext}
               disabled={!inputValue.trim() && currentQuestion.type !== 'select'}
-              className="bg-black text-white font-bold px-10 py-5 rounded-2xl flex items-center gap-3 hover:opacity-90 transition-all disabled:opacity-20 disabled:cursor-not-allowed shadow-xl tracking-widest uppercase"
+              className="w-full sm:w-auto bg-black text-white font-bold px-10 py-4 md:py-5 rounded-xl md:rounded-2xl flex items-center justify-center gap-3 hover:opacity-90 transition-all disabled:opacity-10 disabled:cursor-not-allowed shadow-xl tracking-widest uppercase text-[10px] md:text-xs"
             >
               {currentIndex === questions.length - 1 ? (
-                <>Complete <Check className="w-5 h-5" /></>
+                <>Complete <Check className="w-4 h-4 md:w-5 md:h-5" /></>
               ) : (
-                <>Continue <ArrowRight className="w-5 h-5" /></>
+                <>Continue <ArrowRight className="w-4 h-4 md:w-5 md:h-5" /></>
               )}
             </button>
           </div>
 
-          {/* Back Button (Only show if not on first question) */}
+          {/* Back Button (Desktop top-right, Mobile footer-like) */}
           {currentIndex > 0 && (
-            <div className="absolute top-8 right-8">
+            <div className="absolute top-6 md:top-10 right-6 md:right-10">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-all shadow-sm border border-border"
+                className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-black/5 text-black hover:bg-black/10 transition-all shadow-xl border border-black/5"
                 title="Previous Question"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
               </button>
             </div>
           )}

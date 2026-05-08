@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import { toast } from "sonner";
 
 export interface Product {
   id: "validate" | "see" | "feel" | "plan";
@@ -69,7 +70,7 @@ interface CartContextValue {
   setOpen: (open: boolean) => void;
 }
 
-const noop = () => {};
+const noop = () => { };
 
 const defaultValue: CartContextValue = {
   items: [],
@@ -88,34 +89,71 @@ const CartContext = createContext<CartContextValue>(defaultValue);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [open, setOpen] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("dna-cart");
+    if (saved) {
+      try {
+        setItems(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse cart", e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Save to localStorage
+  useEffect(() => {
+    if (isLoaded) {
+      console.log("Cart: Saving to localStorage", items);
+      localStorage.setItem("dna-cart", JSON.stringify(items));
+    }
+  }, [items, isLoaded]);
 
   const add = useCallback((product: Product) => {
-    console.log("Adding product to cart:", product.id);
+    console.log("Cart: Adding product", product.id);
+    if (!product || !product.id) {
+      console.error("Cart: Invalid product", product);
+      return;
+    }
+
     setItems((prev) => {
-      console.log("Current items:", prev);
+      console.log("Cart: Previous state", prev);
       const existing = prev.find((i) => i.id === product.id);
+      let newState;
       if (existing) {
-        return prev.map((i) =>
+        newState = prev.map((i) =>
           i.id === product.id ? { ...i, qty: i.qty + 1 } : i,
         );
+      } else {
+        newState = [...prev, { ...product, qty: 1 }];
       }
-      return [...prev, { ...product, qty: 1 }];
+      console.log("Cart: New state", newState);
+      return newState;
     });
-    console.log("Setting open to true");
+
+    toast.success(`${product.title} added to sample tray`);
     setOpen(true);
+    console.log("Cart: Open set to true");
   }, []);
 
   const remove = useCallback((id: string) => {
+    const item = items.find(i => i.id === id);
     setItems((prev) => prev.filter((i) => i.id !== id));
-  }, []);
+    if (item) {
+      toast.info(`${item.title} removed from sample tray`);
+    }
+  }, [items]);
 
   const update = useCallback((id: string, qty: number) => {
     if (qty <= 0) {
-      setItems((prev) => prev.filter((i) => i.id !== id));
+      remove(id);
     } else {
       setItems((prev) => prev.map((i) => (i.id === id ? { ...i, qty } : i)));
     }
-  }, []);
+  }, [remove]);
 
   const clear = useCallback(() => {
     setItems([]);
