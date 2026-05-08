@@ -28,7 +28,7 @@ function Index() {
       title: "Validate",
       subtitle: "The Proof of Concept",
       icon: ShieldCheck,
-      image: "/src/assets/Validate.avif",
+      image: "/assets/Validate.avif",
       description: "Stop guessing. We use AI-driven market analysis and biochemical-grade validation frameworks to stress-test your idea's viability. If it works here, it works anywhere.",
       features: ["Market Liquidity Analysis", "Competitor DNA Mapping", "Growth Viability Scores", "Risk Mitigation Report"],
       color: "blue"
@@ -38,7 +38,7 @@ function Index() {
       title: "See",
       subtitle: "Visual Manifestation",
       icon: Sparkles,
-      image: "/src/assets/see.png",
+      image: "/assets/see.png",
       description: "Bring the invisible to life. Our design lab crafts premium visual identities, logos, and cinematic design systems that capture the essence of your vision.",
       features: ["Premium Brand Identity", "High-Fidelity Mockups", "Interactive Styleguides", "Cinematic Design System"],
       color: "purple"
@@ -48,7 +48,7 @@ function Index() {
       title: "Feel",
       subtitle: "Experience Prototype",
       icon: Zap,
-      image: "/src/assets/Feel.jpg",
+      image: "/assets/Feel.jpg",
       description: "Touch the future before it's built. We create hyper-realistic interactive prototypes that allow you to feel the user journey and optimize for retention.",
       features: ["UX Stress Testing", "Interactive Prototypes", "User Psychology Analysis", "Retention Optimization"],
       color: "cyan"
@@ -58,7 +58,7 @@ function Index() {
       title: "Plan",
       subtitle: "Venture Roadmap",
       icon: Dna,
-      image: "/src/assets/Plan.jpg",
+      image: "/assets/Plan.jpg",
       description: "Get investor-ready with a bulletproof roadmap. From financial modeling to GTM strategies, we provide the architectural blueprints for your empire.",
       features: ["Financial Modeling", "Strategic GTM Roadmap", "Investor Pitch Deck", "Operational Blueprint"],
       color: "indigo"
