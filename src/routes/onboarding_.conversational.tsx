@@ -1,0 +1,194 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+
+export const Route = createFileRoute("/onboarding_/conversational")({
+  component: ConversationalFlow,
+});
+
+const questions = [
+  { id: "name", text: "What's your name?", type: "text", placeholder: "Type your answer here..." },
+  { id: "email", text: "What's your email address?", type: "email", placeholder: "name@example.com" },
+  { id: "source", text: "How did you hear about Labs?", type: "select", options: ["Labs website", "Social media", "Friend referral", "Search engine", "Other"], placeholder: "Select an option..." },
+  { id: "story", text: "You know what? Forget structure for a second. Just tell me about this idea. What got you excited about it? What's the story behind it?", type: "textarea", placeholder: "Type as much as you want..." },
+  { id: "stage", text: "What stage is your idea? This shapes our planning approach", type: "select", options: ["Just an idea", "Researching", "Prototyping", "Ready to launch"], placeholder: "Select an option..." },
+  { id: "goal", text: "What's your main goal? Different goals need different plans", type: "select", options: ["Make a living", "Build a side hustle", "Change the world", "Sell the company"], placeholder: "Select an option..." },
+  { id: "budget", text: "What's your budget reality? Honest assessment helps us plan realistically", type: "select", options: ["Bootstrapping ($0)", "Under $1k", "$1k - $5k", "$5k+"], placeholder: "Select an option..." },
+  { id: "revenue", text: "How will this make money? Your revenue model", type: "select", options: ["Subscriptions", "One-time purchases", "Ads/Sponsorships", "Not sure yet"], placeholder: "Select an option..." },
+  { id: "pricing", text: "What would you charge? Pricing strategy", type: "select", options: ["Premium/High ticket", "Mid-market", "Cheap/Volume", "Freemium"], placeholder: "Select an option..." },
+  { id: "timeline", text: "When do you want to launch? Your timeline affects everything", type: "select", options: ["ASAP", "Next 3 months", "Next 6 months", "No rush"], placeholder: "Select an option..." },
+  { id: "skills", text: "What skills do you have? Helps identify what support you'll need", type: "textarea", placeholder: "e.g. Marketing, Coding, Design..." },
+  { id: "worries", text: "What worries you most? We'll address your biggest concerns", type: "select", options: ["Finding customers", "Building the product", "Funding", "Competitors"], placeholder: "Select an option..." },
+  { id: "needs", text: "What would make this plan perfect for you? Your specific needs for the business plan", type: "select", options: ["Financial projections", "Marketing strategy", "Technical roadmap", "All of the above"], placeholder: "Select an option..." },
+  { id: "metrics", text: "How will you measure success? What metrics matter to you", type: "select", options: ["Revenue", "User growth", "Profit margin", "Impact"], placeholder: "Select an option..." },
+  { id: "context", text: "Anything else we should know? Additional context, specific requests, or questions", type: "textarea", placeholder: "Any final thoughts?" },
+];
+
+function ConversationalFlow() {
+  const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [inputValue, setInputValue] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const currentQuestion = questions[currentIndex];
+  const progress = ((currentIndex) / questions.length) * 100;
+
+  useEffect(() => {
+    setInputValue(answers[currentQuestion.id] || "");
+  }, [currentIndex, currentQuestion.id, answers]);
+
+  const handleNext = () => {
+    if (!inputValue.trim() && currentQuestion.type !== 'select') return;
+
+    setAnswers(prev => ({ ...prev, [currentQuestion.id]: inputValue }));
+
+    if (currentIndex < questions.length - 1) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex(prev => prev + 1);
+        setIsAnimating(false);
+      }, 300);
+    } else {
+      // Submit logic here
+      navigate({ to: "/checkout/done" });
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex(prev => prev - 1);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleNext();
+    }
+  };
+
+  return (
+    <div className="min-h-screen w-full flex flex-col text-foreground font-sans selection:bg-primary/30 relative overflow-hidden bg-white">
+      {/* Black/White/Gray Gradient Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,oklch(0.95_0_0),transparent_70%),radial-gradient(circle_at_bottom_left,oklch(0.2_0_0),transparent_70%),linear-gradient(to_bottom,white,oklch(0.9_0_0))]" />
+      
+      {/* Background Decor */}
+      <div className="absolute inset-0 ring-grid pointer-events-none opacity-20" />
+
+      {/* Top Bar with Progress */}
+      <header className="w-full flex items-center justify-between p-6 relative z-10">
+        <button
+          onClick={() => navigate({ to: "/onboarding" })}
+          className="text-muted-foreground hover:text-foreground font-medium transition flex items-center gap-2"
+        >
+          <ArrowLeft className="h-5 w-5" /> Validate - Conversational
+        </button>
+        <div className="text-sm font-bold tracking-widest text-muted-foreground uppercase">
+          {currentIndex + 1} / {questions.length}
+        </div>
+      </header>
+
+      {/* Progress Bar */}
+      <div className="w-full h-1 bg-secondary relative z-10">
+        <div
+          className="absolute top-0 left-0 h-full bg-primary transition-all duration-500 ease-out"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      {/* Main Content Area */}
+      <main className="flex-grow flex items-center justify-center p-6 md:p-12 relative z-10 overflow-hidden">
+        <div
+          className={`w-full max-w-3xl flex flex-col transition-all duration-300 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[3rem] p-8 md:p-16 shadow-2xl ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
+        >
+          {/* Question Counter Label */}
+          <span className="text-black/40 font-bold tracking-[0.3em] text-xs mb-6 uppercase">
+            Step {currentIndex + 1}
+          </span>
+
+          {/* Question Text */}
+          <h1 className="text-3xl md:text-5xl font-semibold mb-12 leading-tight text-black drop-shadow-sm">
+            {currentQuestion.text}
+          </h1>
+
+          {/* Input Area */}
+          <div className="w-full relative">
+            {currentQuestion.type === "text" || currentQuestion.type === "email" ? (
+              <input
+                type={currentQuestion.type}
+                placeholder={currentQuestion.placeholder}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+                autoFocus
+                className="w-full bg-transparent border-b-2 border-black/10 focus:border-black text-2xl md:text-4xl py-6 focus:outline-none transition-all placeholder:text-black/10 text-black"
+              />
+            ) : currentQuestion.type === "textarea" ? (
+              <textarea
+                placeholder={currentQuestion.placeholder}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+                autoFocus
+                rows={4}
+                className="w-full bg-white/5 border border-white/10 focus:border-white/30 rounded-3xl text-xl p-8 focus:outline-none transition-all placeholder:text-black/10 text-black resize-none"
+              />
+            ) : currentQuestion.type === "select" ? (
+              <div className="w-full relative group">
+                <select
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-3xl p-6 text-xl appearance-none focus:outline-none focus:border-white/30 transition-all cursor-pointer text-black"
+                >
+                  <option value="" disabled>{currentQuestion.placeholder || "Select an option..."}</option>
+                  {currentQuestion.options?.map((option) => (
+                    <option key={option} value={option} className="bg-white text-black">
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none text-black/30 group-hover:text-black transition-colors">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="flex items-center gap-6 mt-16">
+            <button
+              onClick={handleNext}
+              disabled={!inputValue.trim() && currentQuestion.type !== 'select'}
+              className="bg-black text-white font-bold px-10 py-5 rounded-2xl flex items-center gap-3 hover:opacity-90 transition-all disabled:opacity-20 disabled:cursor-not-allowed shadow-xl tracking-widest uppercase"
+            >
+              {currentIndex === questions.length - 1 ? (
+                <>Complete <Check className="w-5 h-5" /></>
+              ) : (
+                <>Continue <ArrowRight className="w-5 h-5" /></>
+              )}
+            </button>
+          </div>
+
+          {/* Back Button (Only show if not on first question) */}
+          {currentIndex > 0 && (
+            <div className="absolute top-8 right-8">
+              <button
+                onClick={handlePrev}
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground transition-all shadow-sm border border-border"
+                title="Previous Question"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            </div>
+          )}
+
+        </div>
+      </main>
+    </div>
+  );
+}
