@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, Mail, Calendar, Download, ArrowRight, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
+import { Check, Mail, Calendar, Download, ArrowRight, CheckCircle2, Sparkles, ShieldCheck, ScanSearch, FlaskConical, PackageCheck, Inbox, Cpu, Truck, Layers } from "lucide-react";
 
 export const Route = createFileRoute("/submission-complete")({
   component: SubmissionComplete,
@@ -11,15 +11,11 @@ function SubmissionComplete() {
       {/* Complex Background Gradient */}
 
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
-        {/* Success Icon (Premium Style from Done Page) */}
-        <div className="relative mx-auto h-20 w-20 mb-10 group cursor-default">
-          {/* Outer Glow Ring */}
-          <div className="absolute inset-[-10px] bg-[#00DDAA]/20 rounded-full blur-xl animate-pulse" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#00DDAA] to-[#00DDAA]/60 rounded-full shadow-[0_0_50px_rgba(0,221,170,0.4)] flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
-            <CheckCircle2 className="h-10 w-10 text-white" strokeWidth={2.5} />
+        {/* Success Icon (Standardized with Done Page) */}
+        <div className="flex justify-center mb-8 md:mb-10">
+          <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-[#00DDAA] flex items-center justify-center shadow-[0_15px_35px_rgba(0,221,170,0.2)]">
+            <CheckCircle2 className="h-6 w-6 md:h-7 md:w-7 text-white" strokeWidth={2.5} />
           </div>
-          {/* Floating Sparkles */}
-          <Sparkles className="absolute -top-3 -right-3 h-6 w-6 text-[#00DDAA] animate-bounce [animation-duration:3s]" />
         </div>
 
         {/* Title & Subtext */}
@@ -42,9 +38,9 @@ function SubmissionComplete() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
             <div className="flex flex-col items-center text-center group">
-              <div className="h-14 w-14 md:h-16 md:w-16 bg-blue-500/5 border border-blue-500/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-5 md:mb-6 shadow-[0_10px_30px_rgba(59,130,246,0.1)] transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
-                <ShieldCheck className="h-7 w-7 md:h-8 md:w-8 text-blue-600 relative z-10" strokeWidth={1.5} />
+              <div className="h-14 w-14 md:h-16 md:w-16 flex items-center justify-center mb-5 md:mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative">
+                <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ScanSearch className="h-8 w-8 md:h-10 md:w-10 text-blue-600 relative z-10" strokeWidth={1.5} />
               </div>
               <h3 className="text-lg md:text-xl font-bold text-black mb-2 md:mb-3">Review & Analysis</h3>
               <p className="text-black/40 text-xs md:text-sm leading-relaxed font-medium px-4 md:px-0">
@@ -53,9 +49,9 @@ function SubmissionComplete() {
             </div>
 
             <div className="flex flex-col items-center text-center group">
-              <div className="h-14 w-14 md:h-16 md:w-16 bg-purple-500/5 border border-purple-500/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-5 md:mb-6 shadow-[0_10px_30px_rgba(168,85,247,0.1)] transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent" />
-                <Sparkles className="h-7 w-7 md:h-8 md:w-8 text-purple-600 relative z-10" strokeWidth={1.5} />
+              <div className="h-14 w-14 md:h-16 md:w-16 flex items-center justify-center mb-5 md:mb-6 transform group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 relative">
+                <div className="absolute inset-0 bg-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <FlaskConical className="h-8 w-8 md:h-10 md:w-10 text-purple-600 relative z-10" strokeWidth={1.5} />
               </div>
               <h3 className="text-lg md:text-xl font-bold text-black mb-2 md:mb-3">Preparation</h3>
               <p className="text-black/40 text-xs md:text-sm leading-relaxed font-medium px-4 md:px-0">
@@ -64,9 +60,9 @@ function SubmissionComplete() {
             </div>
 
             <div className="flex flex-col items-center text-center group">
-              <div className="h-14 w-14 md:h-16 md:w-16 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-5 md:mb-6 shadow-[0_10px_30px_rgba(16,185,129,0.1)] transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />
-                <CheckCircle2 className="h-7 w-7 md:h-8 md:w-8 text-emerald-600 relative z-10" strokeWidth={1.5} />
+              <div className="h-14 w-14 md:h-16 md:w-16 flex items-center justify-center mb-5 md:mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative">
+                <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <PackageCheck className="h-8 w-8 md:h-10 md:w-10 text-emerald-600 relative z-10" strokeWidth={1.5} />
               </div>
               <h3 className="text-lg md:text-xl font-bold text-black mb-2 md:mb-3">Delivery</h3>
               <p className="text-black/40 text-xs md:text-sm leading-relaxed font-medium px-4 md:px-0">
@@ -82,26 +78,28 @@ function SubmissionComplete() {
             Expected Timeline
           </h2>
 
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-0 relative">
             {[
-              { day: "Today", title: "Submission Received", desc: "Your information has been successfully submitted", icon: CheckCircle2, color: "text-emerald-500" },
-              { day: "Day 1-2", title: "Initial Review", desc: "Our team begins analysis and may reach out for clarification", step: "1", color: "bg-blue-500/10 text-blue-600 border border-blue-500/20" },
-              { day: "Day 3-4", title: "Development", desc: "Creation of your customized deliverables", step: "2", color: "bg-purple-500/10 text-purple-600 border border-purple-500/20" },
-              { day: "Day 5", title: "Delivery", desc: "Final review and delivery of your completed package", step: "3", color: "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" },
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-4 md:gap-6 group">
-                <div className="shrink-0 mt-1">
-                  {item.icon ? (
-                    <item.icon className={`h-7 w-7 md:h-8 md:w-8 ${item.color}`} />
-                  ) : (
-                    <div className={`h-7 w-7 md:h-8 md:w-8 rounded-full ${item.color} flex items-center justify-center font-bold text-xs md:text-sm shadow-md group-hover:scale-110 transition-transform duration-500`}>
-                      {item.step}
-                    </div>
+              { day: "Today", title: "Submission Received", desc: "Your information has been successfully submitted", icon: Inbox, color: "text-blue-500", bgColor: "bg-blue-500/10" },
+              { day: "Day 1-2", title: "Initial Review", desc: "Our team begins analysis and may reach out for clarification", icon: ScanSearch, color: "text-purple-500", bgColor: "bg-purple-500/10" },
+              { day: "Day 3-4", title: "Development", desc: "Creation of your customized deliverables", icon: Layers, color: "text-emerald-500", bgColor: "bg-emerald-500/10" },
+              { day: "Day 5", title: "Delivery", desc: "Final review and delivery of your completed package", icon: Truck, color: "text-blue-600", bgColor: "bg-blue-600/10" },
+            ].map((item, i, arr) => (
+              <div key={i} className="flex items-stretch gap-5 md:gap-8 group relative">
+                <div className="flex flex-col items-center shrink-0">
+                  <div className={`h-8 w-8 md:h-10 md:w-10 rounded-xl ${item.bgColor} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500 relative z-10`}>
+                    <item.icon className={`h-4 w-4 md:h-5 md:w-5 ${item.color}`} strokeWidth={2.5} />
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="w-0.5 flex-grow bg-black/5 my-3 rounded-full" />
                   )}
                 </div>
-                <div>
-                  <h4 className="text-black font-bold text-base md:text-lg mb-1">
-                    {item.day} - {item.title}
+                <div className="pt-0.5 pb-12">
+                  <h4 className="text-black font-bold text-base md:text-lg mb-1 flex items-center gap-3">
+                    {item.title}
+                    <span className="px-2 py-0.5 rounded-md bg-black/5 text-black/40 text-[9px] md:text-[10px] uppercase tracking-widest font-black">
+                      {item.day}
+                    </span>
                   </h4>
                   <p className="text-black/40 text-xs md:text-sm leading-relaxed font-medium">
                     {item.desc}

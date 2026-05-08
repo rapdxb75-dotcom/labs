@@ -12,12 +12,12 @@ function OnboardingPage() {
       {/* Header Navigation */}
       <header className="w-full flex items-center mb-8 md:mb-12 relative z-10 mt-20">
         <Link to="/checkout/done" className="text-black/40 hover:text-black font-bold transition flex items-center gap-2 text-xs md:text-sm uppercase tracking-widest">
-          <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" /> Back
+          <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" /> Validate
         </Link>
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center flex-grow animate-in fade-in zoom-in-95 duration-700 mt-8 md:mt-12 mb-12">
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center flex-grow animate-in fade-in zoom-in-95 duration-700 mt-4 md:mt-6 mb-12">
         <h1 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 text-center text-black drop-shadow-sm max-w-3xl tracking-tight leading-tight">
           How would you like to share your idea?
         </h1>

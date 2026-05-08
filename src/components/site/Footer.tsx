@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="relative mt-12 md:mt-16">
       <div className="absolute inset-0 -z-10 glass border-t border-white/30" />
-      <div className="mx-auto max-max-w-7xl px-6 py-12 md:py-16 grid gap-10 md:gap-12 md:grid-cols-5 relative">
+      <div className="mx-auto max-w-7xl px-6 py-8 md:py-12 grid gap-10 md:gap-12 md:grid-cols-5 relative">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5 group">
             <p className="font-black tracking-tighter text-2xl text-black">Labs.</p>
@@ -34,7 +34,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-black/5 relative py-6 md:py-8">
+      <div className="border-t border-black/5 relative py-4 md:py-5">
         <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row gap-4 md:gap-6 items-center justify-between text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-black/30 text-center sm:text-left">
           <p>© {new Date().getFullYear()} DNA Labs. Engineering Extraordinary.</p>
           <div className="flex gap-6 md:gap-8">
@@ -50,7 +50,7 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: [string, string][] }) {
   return (
     <div>
-      <p className="text-[11px] font-black uppercase tracking-[0.3em] text-black mb-8">{title}</p>
+      <p className="text-[11px] font-black uppercase tracking-[0.3em] text-black mb-5">{title}</p>
       <ul className="space-y-4 text-xs">
         {links.map(([label, to]) => (
           <li key={label + to}>

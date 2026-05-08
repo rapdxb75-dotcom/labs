@@ -1,8 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback } from "react";
-import { CheckCircle, ShoppingBag, ArrowRight, Microscope, Sparkles, Activity, Dna, Star, Users } from "lucide-react";
+import { CheckCircle, ShoppingBag, ArrowRight, Microscope, Sparkles, Activity, Dna, Star, Users, Info, X, Play } from "lucide-react";
 import { PRODUCTS, useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 const ICONS = { validate: Microscope, see: Sparkles, feel: Activity, plan: Dna } as const;
 
@@ -57,7 +66,6 @@ function Products() {
   const { add } = useCart();
 
   const handleAddproduct = useCallback((p: any) => {
-    console.log("Adding product", p.id);
     add(p);
   }, [add]);
 
@@ -65,8 +73,8 @@ function Products() {
     <div className="mx-auto max-w-7xl px-6 py-12 md:py-20">
       <div className="reveal text-center mb-12 md:mb-16">
         <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Our services</p>
-        <h1 className="text-4xl md:text-6xl font-semibold tracking-tight">
-          Transform ideas into <span className="text-gradient-cyan">reality.</span>
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-black">
+          Transform ideas into <span className="text-black/40">reality.</span>
         </h1>
         <p className="mt-4 text-black/60 max-w-2xl mx-auto text-base md:text-lg font-medium px-4">
           Choose the perfect service to bring your vision to life. Each is engineered to take you one
@@ -74,102 +82,146 @@ function Products() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {PRODUCTS.map((p, i) => {
           const Icon = ICONS[p.id as keyof typeof ICONS];
           return (
             <article 
               key={p.id} 
-              id={p.id}
-              className="reveal bg-white/40 backdrop-blur-3xl border border-white/60 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden flex flex-col p-6 md:p-10 shadow-2xl transition-all hover:scale-[1.01] hover:bg-white/60 scroll-mt-24" 
-              style={{ transitionDelay: `${i * 80}ms` }}
+              className="reveal flex flex-col glass-card border border-white/60 rounded-[2.5rem] overflow-hidden p-6 md:p-8 shadow-xl transition-all hover:scale-[1.02] hover:bg-white/60 group relative bg-white/40 backdrop-blur-3xl" 
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
-              <div className="flex flex-col sm:flex-row gap-6">
-                 <div className="h-20 w-20 md:h-24 md:w-24 rounded-2xl bg-white flex items-center justify-center shrink-0 border border-white/60 shadow-xl mx-auto sm:mx-0">
-                    <Icon className="h-10 w-10 md:h-12 md:w-12 text-black" />
-                 </div>
-                 <div className="flex-1 pt-1 text-center sm:text-left">
-                    <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start gap-2">
-                       <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-black">{p.title}</h2>
-                       <span className="text-2xl md:text-3xl font-bold text-black">${p.price}</span>
-                    </div>
-                    <p className="text-black/60 font-medium mt-1 uppercase tracking-widest text-[9px] md:text-[10px]">{p.tagline}</p>
-                    <div className="flex items-center justify-center sm:justify-start gap-5 mt-4 text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-black/40">
-                       <span className="flex items-center gap-1.5 text-black">
-                          <Star className="h-3.5 w-3.5 md:h-4 md:w-4 fill-current" /> 4.9
-                       </span>
-                       <span className="flex items-center gap-1.5">
-                          <Users className="h-3.5 w-3.5 md:h-4 md:w-4" /> 500+ clients
-                       </span>
-                    </div>
-                 </div>
-              </div>
-
-              <p className="mt-8 md:mt-10 text-base md:text-lg text-black/70 leading-relaxed font-medium">
-                {FULL[p.id]}
-              </p>
-
-              <div className="mt-8 md:mt-10">
-                <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">What's Included:</h3>
-                <ul className="grid grid-cols-1 gap-3 md:gap-4">
-                  {FEATURES[p.id].map(f => (
-                     <li key={f} className="flex gap-3 text-sm text-black/60 items-center font-medium">
-                        <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-black shrink-0" />
-                        <span>{f}</span>
-                     </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8 md:mt-10">
-                 <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">See It In Action:</h3>
-                 <div className="aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-black/5 border border-black/10 group relative shadow-xl">
-                    <img src={p.image} alt={p.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-80" />
-                    <div className="absolute inset-0 bg-black/10 pointer-events-none group-hover:opacity-0 transition-opacity" />
-                 </div>
-              </div>
-
-              {SUCCESS_STORIES[p.id] && (
-                <div className="mt-8 md:mt-10">
-                  <h3 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-black mb-4 md:mb-6">Recent Success Stories:</h3>
-                  <div className="grid grid-cols-1 gap-4">
-                    {SUCCESS_STORIES[p.id].map((story, idx) => (
-                      <div key={idx} className="bg-white/40 backdrop-blur-2xl border border-white/60 rounded-xl md:rounded-2xl p-5 md:p-6 transition-all hover:bg-white/60 shadow-lg">
-                        <div className="flex justify-between items-baseline mb-2">
-                          <span className="font-bold text-black text-base md:text-lg">{story.name}</span>
-                          <span className="text-[9px] text-black/40 font-bold uppercase tracking-widest">{story.company}</span>
-                        </div>
-                        <p className="text-xs md:text-sm text-black/60 font-medium leading-relaxed">{story.result}</p>
-                      </div>
-                    ))}
-                  </div>
+              <div className="flex flex-col items-center text-center mb-6">
+                <div className="h-20 w-20 rounded-2xl bg-white flex items-center justify-center border border-white/60 shadow-lg mb-6 group-hover:scale-110 transition-transform duration-500">
+                  <Icon className="h-10 w-10 text-black" strokeWidth={1.5} />
                 </div>
-              )}
+                <h2 className="text-2xl font-bold tracking-tight text-black mb-1">{p.title}</h2>
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-black/40 mb-4">{p.tagline}</p>
+                <div className="flex items-center gap-4 text-[10px] font-bold text-black/40 uppercase tracking-widest">
+                  <span className="flex items-center gap-1"><Star className="h-3 w-3 fill-current text-black" /> 4.9</span>
+                  <span className="flex items-center gap-1"><Users className="h-3 w-3 text-black" /> 500+</span>
+                </div>
+              </div>
 
-              <div className="mt-10 md:mt-12 flex gap-3">
-                 <Button onClick={() => handleAddproduct(p)} size="lg" className="flex-1 rounded-xl md:rounded-2xl bg-black text-white hover:opacity-90 transition-all font-bold tracking-widest uppercase text-[10px] md:text-xs h-14 md:h-16 shadow-xl">
-                    <ShoppingBag className="h-4 w-4 md:h-5 md:w-5 mr-2" /> Add to cart
-                 </Button>
+              <div className="mt-auto space-y-4">
+                <div className="flex items-center justify-center">
+                  <span className="text-3xl font-black text-black tracking-tighter">${p.price}</span>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2 pt-4">
+                  <Button 
+                    onClick={() => handleAddproduct(p)} 
+                    className="w-full rounded-xl bg-black text-white hover:bg-black/90 transition-all font-bold tracking-widest uppercase text-[10px] h-12 shadow-lg"
+                  >
+                    <ShoppingBag className="h-4 w-4 mr-2" /> Add to cart
+                  </Button>
+                  
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline"
+                        className="w-full rounded-xl border-white/60 bg-white/50 backdrop-blur-sm text-black hover:bg-white transition-all font-bold tracking-widest uppercase text-[10px] h-12"
+                      >
+                        <Info className="h-4 w-4 mr-2" /> Details
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto rounded-[3.5rem] border-white/60 bg-gradient-to-br from-white/95 via-white/80 to-white/60 backdrop-blur-[40px] p-0 gap-0 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] border ring-1 ring-white/50">
+                      <div className="relative">
+                        {/* Header Image/Background */}
+                        <div className="h-48 md:h-64 relative overflow-hidden group/image flex items-center justify-center cursor-pointer">
+                          <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover/image:scale-110" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-black/20" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="h-16 w-16 md:h-20 md:w-20 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center shadow-2xl transition-all group-hover/image:scale-110 group-hover/image:bg-white/40">
+                              <Play className="h-6 w-6 md:h-8 md:w-8 text-white fill-white ml-1" />
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="px-6 md:px-10 pb-10 -mt-20 relative z-10">
+                           <div className="h-24 w-24 rounded-3xl bg-white flex items-center justify-center border border-white/60 shadow-2xl mb-6">
+                              <Icon className="h-12 w-12 text-black" strokeWidth={1.5} />
+                           </div>
+                           
+                           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+                              <div>
+                                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-black/40 mb-2">{p.tagline}</p>
+                                 <DialogTitle className="text-4xl md:text-6xl font-bold tracking-tighter text-black leading-none">{p.title}</DialogTitle>
+                              </div>
+                              <div className="text-3xl md:text-4xl font-black text-black tracking-tighter">${p.price}</div>
+                           </div>
+
+                           <div className="grid md:grid-cols-2 gap-10">
+                              <div className="space-y-8">
+                                 <div>
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-black mb-4">The Mission</h3>
+                                    <DialogDescription className="text-base md:text-lg text-black/70 leading-relaxed font-medium">
+                                       {FULL[p.id]}
+                                    </DialogDescription>
+                                 </div>
+
+                                 <div>
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-black mb-4">Success Stories</h3>
+                                    <div className="space-y-4">
+                                       {SUCCESS_STORIES[p.id]?.map((story, idx) => (
+                                          <div key={idx} className="glass p-4 rounded-2xl border-white/80 bg-white/70 shadow-sm">
+                                             <div className="flex justify-between items-baseline mb-1">
+                                                <span className="font-bold text-black text-sm">{story.name}</span>
+                                                <span className="text-[8px] text-black/40 font-black uppercase tracking-widest">{story.company}</span>
+                                             </div>
+                                             <p className="text-[11px] text-black/60 font-medium leading-relaxed">{story.result}</p>
+                                          </div>
+                                       ))}
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <div className="space-y-8">
+                                 <div>
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-black mb-4">Deliverables</h3>
+                                    <ul className="grid grid-cols-1 gap-3">
+                                       {FEATURES[p.id].map(f => (
+                                          <li key={f} className="flex gap-3 text-[13px] text-black/80 items-center font-medium glass p-3 rounded-xl border-white/80 bg-white/70 shadow-sm">
+                                             <CheckCircle className="h-4 w-4 text-black shrink-0" />
+                                             <span>{f}</span>
+                                          </li>
+                                       ))}
+                                    </ul>
+                                 </div>
+
+                                 <Button 
+                                    onClick={() => handleAddproduct(p)} 
+                                    className="w-full rounded-2xl bg-black text-white hover:bg-black/90 transition-all font-bold tracking-widest uppercase text-xs h-16 shadow-2xl mt-4"
+                                 >
+                                    <ShoppingBag className="h-5 w-5 mr-3" /> Add {p.title} to Cart
+                                 </Button>
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
             </article>
           );
         })}
       </div>
 
-      <div className="reveal mt-12 md:mt-16 relative overflow-hidden rounded-[2.5rem] md:rounded-[3rem] bg-black text-white p-10 md:p-20 text-center shadow-2xl mx-4 md:mx-0">
-        <div className="absolute inset-0 ring-grid opacity-20 pointer-events-none" />
-        <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-          All four. <span className="text-white/40">One protocol.</span>
+      <div className="reveal mt-20 md:mt-32 relative overflow-hidden rounded-[3rem] md:rounded-[5rem] bg-black text-white p-12 md:p-24 text-center shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none" />
+        <h2 className="text-4xl md:text-7xl font-bold tracking-tight mb-6 leading-none">
+          All four. <br className="md:hidden" /> <span className="text-white/40">One protocol.</span>
         </h2>
-        <p className="mt-4 md:mt-6 text-white/60 max-w-xl mx-auto text-base md:text-lg font-medium leading-relaxed px-4">
-          The full DNA Labs experience — Validate, See, Feel and Plan together.
+        <p className="mt-4 text-white/60 max-w-xl mx-auto text-base md:text-xl font-medium leading-relaxed">
+          The full DNA Labs experience — Validate, See, Feel and Plan together for maximum impact.
         </p>
         <Button
           size="lg"
           onClick={() => PRODUCTS.forEach(add)}
-          className="mt-8 md:mt-10 rounded-xl md:rounded-2xl px-8 md:px-12 py-6 md:py-8 bg-white text-black hover:bg-white/90 transition-all font-bold tracking-widest uppercase text-xs md:text-sm shadow-2xl w-full sm:w-auto"
+          className="mt-10 md:mt-12 rounded-2xl px-10 md:px-16 py-7 md:py-8 bg-white text-black hover:bg-white/90 transition-all font-bold tracking-widest uppercase text-xs md:text-sm shadow-2xl w-full sm:w-auto group"
         >
-          I want them all <ArrowRight className="ml-3 h-4 w-4 md:h-5 md:w-5" />
+          Activate Full Protocol <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-2" />
         </Button>
       </div>
     </div>

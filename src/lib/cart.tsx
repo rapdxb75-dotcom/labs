@@ -22,8 +22,7 @@ export const PRODUCTS: Product[] = [
     tagline:
       "We stress-test your idea against real market signals, TAM data, and competitor intel — so you know it's worth building before you spend a penny.",
     price: 1200,
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&auto=format&fit=crop&q=60",
+    image: "/assets/Validate.avif",
   },
   {
     id: "see",
@@ -31,8 +30,7 @@ export const PRODUCTS: Product[] = [
     tagline:
       "Your brand comes to life: identity, logo, visual language, and a pitch deck designed to stop investors mid-scroll.",
     price: 1800,
-    image:
-      "https://images.unsplash.com/photo-1559028012-481c04fa702d?w=800&auto=format&fit=crop&q=60",
+    image: "/assets/see.png",
   },
   {
     id: "feel",
@@ -40,8 +38,7 @@ export const PRODUCTS: Product[] = [
     tagline:
       "An interactive prototype your users can actually touch — hi-fi screens, micro-interactions, and a clickable demo ready for user testing.",
     price: 2400,
-    image:
-      "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&auto=format&fit=crop&q=60",
+    image: "/assets/Feel.jpg",
   },
   {
     id: "plan",
@@ -49,8 +46,7 @@ export const PRODUCTS: Product[] = [
     tagline:
       "A full go-to-market strategy: financial model, roadmap, hiring plan, and investor narrative built to withstand due diligence.",
     price: 1600,
-    image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&auto=format&fit=crop&q=60",
+    image: "/assets/Plan.jpg",
   },
 ];
 
@@ -96,7 +92,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem("dna-cart");
     if (saved) {
       try {
-        setItems(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        // Sync with current PRODUCTS to ensure images and other metadata are up to date
+        const synced = parsed.map((item: CartItem) => {
+          const product = PRODUCTS.find((p) => p.id === item.id);
+          return product ? { ...item, ...product, qty: item.qty } : item;
+        });
+        setItems(synced);
       } catch (e) {
         console.error("Failed to parse cart", e);
       }

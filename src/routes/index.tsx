@@ -2,7 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowRight, ShoppingBag, Check, Activity, Microscope, Dna, FlaskConical,
-  ShieldCheck, Sparkles, Zap, Star, Globe, Beaker, Cpu, Layers, MousePointer2, Mouse
+  ShieldCheck, Sparkles, Zap, Star, Globe, Beaker, Cpu, Layers, MousePointer2, Mouse, Play,
+  Fingerprint, ScanEye, ScanSearch
 } from "lucide-react";
 import { PRODUCTS, useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
@@ -27,7 +28,7 @@ function Index() {
       id: "validate",
       title: "Validate",
       subtitle: "The Proof of Concept",
-      icon: ShieldCheck,
+      icon: Fingerprint,
       image: "/assets/Validate.avif",
       description: "Stop guessing. We use AI-driven market analysis and biochemical-grade validation frameworks to stress-test your idea's viability. If it works here, it works anywhere.",
       features: ["Market Liquidity Analysis", "Competitor DNA Mapping", "Growth Viability Scores", "Risk Mitigation Report"],
@@ -37,7 +38,7 @@ function Index() {
       id: "see",
       title: "See",
       subtitle: "Visual Manifestation",
-      icon: Sparkles,
+      icon: ScanEye,
       image: "/assets/see.png",
       description: "Bring the invisible to life. Our design lab crafts premium visual identities, logos, and cinematic design systems that capture the essence of your vision.",
       features: ["Premium Brand Identity", "High-Fidelity Mockups", "Interactive Styleguides", "Cinematic Design System"],
@@ -47,7 +48,7 @@ function Index() {
       id: "feel",
       title: "Feel",
       subtitle: "Experience Prototype",
-      icon: Zap,
+      icon: MousePointer2,
       image: "/assets/Feel.jpg",
       description: "Touch the future before it's built. We create hyper-realistic interactive prototypes that allow you to feel the user journey and optimize for retention.",
       features: ["UX Stress Testing", "Interactive Prototypes", "User Psychology Analysis", "Retention Optimization"],
@@ -167,7 +168,7 @@ function Index() {
 
               {/* Visual Side */}
               <div className="flex-1 w-full aspect-square md:aspect-auto md:h-[600px] reveal">
-                <div className="w-full h-full bg-white rounded-[2.5rem] md:rounded-[4rem] relative overflow-hidden group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] border border-white/60">
+                <div className="w-full h-full bg-white rounded-[2.5rem] md:rounded-[4rem] relative overflow-hidden group shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] border border-white/60 flex items-center justify-center">
                   <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent" />
                 </div>
@@ -190,13 +191,13 @@ function Index() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-10 text-left mt-12 md:mt-20">
-            <div className="space-y-4 md:space-y-6 glass p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/60 shadow-xl group hover:bg-white transition-all">
+            <div className="space-y-4 md:space-y-6 glass p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/60 shadow-xl group hover:bg-white transition-all hover:scale-[1.02]">
               <h3 className="text-xl md:text-2xl font-bold text-black tracking-tighter uppercase">Our Origin</h3>
               <p className="text-sm md:text-lg text-black/60 leading-relaxed font-medium">
                 Born from a need for precision in a world of vague agencies. DNA Labs was founded to provide startup founders with a laboratory for their ideas.
               </p>
             </div>
-            <div className="space-y-4 md:space-y-6 glass p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/60 shadow-xl group hover:bg-white transition-all">
+            <div className="space-y-4 md:space-y-6 glass p-8 md:p-10 rounded-[2rem] md:rounded-[3rem] border-white/60 shadow-xl group hover:bg-white transition-all hover:scale-[1.02]">
               <h3 className="text-xl md:text-2xl font-bold text-black tracking-tighter uppercase">Our Mission</h3>
               <p className="text-sm md:text-lg text-black/60 leading-relaxed font-medium">
                 We don't just build websites or logos. We build foundations. Our mission is to bridge the gap between abstract concepts and concrete ventures.

@@ -20,14 +20,10 @@ function CheckoutDone() {
           <div className="absolute inset-0 bg-[radial-gradient(at_0%_0%,rgba(0,221,170,0.05)_0px,transparent_50%),radial-gradient(at_100%_0%,rgba(167,139,250,0.05)_0px,transparent_50%)]" />
 
           <div className="relative z-10">
-            <div className="relative mx-auto h-16 w-16 md:h-20 md:w-20 mb-6 md:mb-8 group cursor-default">
-              {/* Outer Glow Ring */}
-              <div className="absolute inset-[-8px] md:inset-[-10px] bg-[#00DDAA]/20 rounded-full blur-xl animate-pulse" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#00DDAA] to-[#00DDAA]/60 rounded-full shadow-[0_0_50px_rgba(0,221,170,0.4)] flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
-                <CheckCircle2 className="h-8 w-8 md:h-10 md:w-10 text-white" strokeWidth={2.5} />
+            <div className="flex justify-center mb-6 md:mb-8">
+              <div className="h-12 w-12 md:h-14 md:w-14 rounded-full bg-[#00DDAA] flex items-center justify-center shadow-[0_15px_35px_rgba(0,221,170,0.2)]">
+                <CheckCircle2 className="h-6 w-6 md:h-7 md:w-7 text-white" strokeWidth={2.5} />
               </div>
-              {/* Floating Sparkles */}
-              <Sparkles className="absolute -top-2 -right-2 md:-top-3 md:-right-3 h-5 w-5 md:h-6 md:w-6 text-[#00DDAA] animate-bounce [animation-duration:3s]" />
             </div>
 
             <h1 className="text-2xl md:text-4xl font-black mb-4 text-black tracking-tight drop-shadow-sm font-display">
@@ -39,6 +35,7 @@ function CheckoutDone() {
             </p>
           </div>
         </div>
+
 
         {/* Content Area */}
         <div className="px-6 pb-12 md:px-12 lg:px-20 lg:pb-28 flex flex-col lg:grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 relative z-10">
@@ -168,7 +165,7 @@ function CheckoutDone() {
             </div>
           </div>
         </div>
-      </div>
+        </div>
     </div>
   );
 }

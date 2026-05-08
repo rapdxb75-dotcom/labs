@@ -82,7 +82,7 @@ function ConversationalFlow() {
   return (
     <div className="min-h-screen w-full flex flex-col px-6 md:px-10 py-6 text-black font-sans selection:bg-primary/30 relative overflow-hidden">
       {/* Top Bar with Progress */}
-      <div className="mt-20">
+      <div className="mt-14">
         <header className="w-full flex items-center justify-between py-4 md:py-6 relative z-10">
           <button
             onClick={() => navigate({ to: "/onboarding" })}
