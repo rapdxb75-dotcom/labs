@@ -72,26 +72,29 @@ function Index() {
       {/* Hero Section */}
       <section className="relative w-full min-h-screen flex flex-col items-center justify-start px-4 md:px-6 pt-24 md:pt-32 pb-24 md:pb-40 overflow-hidden">
         {/* Background Media */}
-        <div className="absolute inset-0 z-0 bg-black">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover opacity-80 filter contrast-[1.1] brightness-[1.1]"
-          >
-            <source src="/assets/Hero Section Video.mp4" type="video/mp4" />
-          </video>
+        <div className="absolute inset-0 z-0 bg-white">
+          <div className="absolute inset-0 overflow-hidden">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover opacity-75 filter contrast-[1.1] brightness-[1.05]"
+              style={{ maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)' }}
+            >
+              <source src="/assets/Hero Section Video.mp4" type="video/mp4" />
+            </video>
+          </div>
           
           {/* Quality Enhancing Overlays */}
-          <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] mix-blend-overlay" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/80" />
+          <div className="absolute inset-0 bg-white/20 backdrop-blur-[1px] mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white" />
           
           {/* Grain to mask compression artifacts */}
-          <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+          <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
           
-          {/* Vignette for depth */}
-          <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.1)]" />
+          {/* Subtle Vignette */}
+          <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(255,255,255,0.5)]" />
         </div>
 
         <div className="relative z-10 w-full max-w-5xl flex flex-col items-center text-center">
