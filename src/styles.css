@@ -243,7 +243,6 @@
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0);
@@ -252,6 +251,19 @@
     50% {
       transform: translateY(-10px);
     }
+  }
+
+  @keyframes slow-zoom {
+    0% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1.15);
+    }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 20s ease-in-out infinite alternate;
   }
 
   /* Helix loader */

@@ -70,12 +70,35 @@ function Index() {
     <div className="w-full relative flex flex-col items-center font-sans">
 
       {/* Hero Section */}
-      <section className="relative w-full min-h-screen flex flex-col items-center justify-start px-4 md:px-6 pt-24 md:pt-32 pb-24 md:pb-40">
+      <section className="relative w-full min-h-screen flex flex-col items-center justify-start px-4 md:px-6 pt-24 md:pt-32 pb-24 md:pb-40 overflow-hidden">
+        {/* Background Media */}
+        <div className="absolute inset-0 z-0 bg-black">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-80 filter contrast-[1.1] brightness-[1.1]"
+          >
+            <source src="/assets/Hero Section Video.mp4" type="video/mp4" />
+          </video>
+          
+          {/* Quality Enhancing Overlays */}
+          <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/80" />
+          
+          {/* Grain to mask compression artifacts */}
+          <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-repeat" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+          
+          {/* Vignette for depth */}
+          <div className="absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.1)]" />
+        </div>
+
         <div className="relative z-10 w-full max-w-5xl flex flex-col items-center text-center">
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/60 mb-6 md:mb-8 reveal shadow-xl">
+          {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/60 mb-6 md:mb-8 reveal shadow-xl">
             <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.25em] md:tracking-[0.3em] text-black">Lab-Grade Design Studio</span>
-          </div>
+          </div> */}
 
           <h1 className="text-black text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-bold mb-8 md:mb-6 leading-[0.9] md:leading-[0.85] tracking-tighter reveal px-2">
             Engineering <br />
